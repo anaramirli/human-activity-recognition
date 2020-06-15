@@ -11,6 +11,7 @@ class DataHandler(object):
     
     # load a single txt file as a dataframe
     def load_txt(self, filedir):
+        
         '''
         input:
             filedir: file full path
@@ -23,6 +24,7 @@ class DataHandler(object):
     
     # load the files in the parnet dir and stack them together as numpy arrays
     def load_files(self, parentdir=''):
+        
         '''
         input:
             parnetdir: parent directory of the target files
@@ -36,37 +38,12 @@ class DataHandler(object):
         # accumulator: a list for stroing loaded files
         loadedfiles = []
         
+        # load all the files that exist in the filelist
         for file in filelist:
             data = self.load_txt(parentdir + file)
             loadedfiles.append(data)
             
         return np.dstack(loadedfiles)
-    
-    
-    
-    def get_subject_data(self, data, subject_indices, subject_id):
-
-        '''
-        input:
-            data: main dataset
-            subject_indices: index map corresponds to the occurrence of each subject in the main dataset
-            subject_id: id of the subject we're looking for
-
-        output:
-            returns subset of data for a given subect_id (retrive all the occurrences of given id)
-
-        '''
-
-        if len(data)!=len(subject_indices): assert False, \
-            ('lengths are not equal: data={}, subject_indices={}'.format(len(data), len(subject_indices)))
-
-        # get indices of the value
-        indices = [index for index, s_id in enumerate(np.array(subject_indices)) if s_id==subject_id]
-        
-        if len(indices)==0: assert False, ('there is no observation for subject {}'.format(subject_id))
-
-
-        return data[indices]
     
     
     def remove_overlap(self, data, overlap_per=0.5):
@@ -91,6 +68,6 @@ class DataHandler(object):
             # get the overlap index  
             overlap_index = int(len(frame)* overlap_per) - 1
             # remove the overlap from the data frame
-            series_data.append(frame[0:overlap_index])
+            series_data.append(frame[-overlap_index:])
 
         return np.concatenate(np.array(series_data))

@@ -50,8 +50,8 @@ class DataHandler(object):
         
         '''
         Pre-processed raw data had fixed windows of 2.56 seconds (128 data points) with a 50% overlap.
-        For avoiding duplications due to overlapping in plotting or normalization steps, using this 
-        function we'll remove overlap and squash data frames it to the series. 
+        For avoiding duplications due to overlapping in plotting or normalization steps on raw data,
+        using this function we'll remove overlap and squash data frames it to the series. 
         
         input:
             data: dataset (e.g X_train or X_test)
@@ -68,6 +68,6 @@ class DataHandler(object):
             # get the overlap index  
             overlap_index = int(len(frame)* overlap_per) - 1
             # remove the overlap from the data frame
-            series_data.append(frame[-overlap_index:])
+            series_data.append(frame[0:overlap_index])
 
         return np.concatenate(np.array(series_data))

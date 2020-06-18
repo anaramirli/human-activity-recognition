@@ -7,7 +7,7 @@ import numpy as np
 from scipy.fftpack import fft
 from scipy.signal import welch
 
-class SignalCaculations(object):
+class SignalCalculations(object):
     
     
     def __init__(self, N, F, t):
@@ -61,7 +61,7 @@ class SignalCaculations(object):
         
         # "full" mode correlates signals for every t where both have some overlap.
         # autocorrelation is calculated for 0 <= t < ∞, thus for getting corelation
-        # at 0 <= t < ∞, we'll get halp of it. 
+        # at 0 <= t < ∞, we'll get half of it. 
         aCORR = np.correlate(signal, signal, mode='full')
 
         return t_domain, aCORR[len(aCORR)//2:]

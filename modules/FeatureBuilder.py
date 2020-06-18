@@ -1,23 +1,16 @@
-import numpy as np
-
-
 '''
 some feature generation and handling for feature engineering part
 '''
 
 class FeatureBuilder(object):
-    
-    
-    
+
     def __init__(self, n_peaks=5):
-        
-        
         '''
         @params:
-            n_peaks: number of first n peaks that'll selected from transformation signals
+            n_peaks: number of the first n peaks to be selected from transformation signals
             
         '''
-        
+  
         self.n_peaks = n_peaks 
         
     def init_features(self):
@@ -52,8 +45,8 @@ class FeatureBuilder(object):
         '''
         domain_features = {
 
-        'FFT':   {'min': 0, # smallest peak
-                  'max': 0, # largest peak
+        'FFT':   {'min': 0, # smallest of selected peaks
+                  'max': 0, # largest of selected peaks
                   'mean': 0, # mean of the peaks
                   'peak-values':{}, # for 2 peak it will be like {'1':0, '2':0} 
                   'peak-domains': {}}, # for 2 peak it will be like {'1':0, '2':0} 
@@ -86,13 +79,11 @@ class FeatureBuilder(object):
         # save our featue dicts
         self.main_features = main_features
         self.domain_features = domain_features
-        
-        
-        
+
         
         
     # get domain_features values/ key names 
-    def get_main_features(self):
+    def get_main_features(self, return_values=True):
         '''
         convert main_features dict values to list
         
@@ -103,6 +94,7 @@ class FeatureBuilder(object):
                            
         output: 1D np.array
         '''
+        # temporary list
         output = []
 
         for key, value in self.main_features.items():
@@ -114,7 +106,7 @@ class FeatureBuilder(object):
                 output.append(key)
             
                 
-        return np.array(output)
+        return output
     
    
    # get domain_features values/ key names
@@ -131,7 +123,6 @@ class FeatureBuilder(object):
 
         output: 1D np.array
         '''
-
         # temporary list
         output = []
 
@@ -162,4 +153,4 @@ class FeatureBuilder(object):
                             output.append(signal+'-'+feature+'-'+peaks)
 
 
-        return np.array(output)
+        return output

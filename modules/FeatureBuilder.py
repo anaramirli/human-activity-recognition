@@ -2,6 +2,10 @@
 some feature generation and handling for feature engineering part
 '''
 
+import numpy as np
+from scipy import stats
+from scipy.signal import find_peaks
+
 class FeatureBuilder(object):
 
     def __init__(self, n_peaks=5):
@@ -14,76 +18,56 @@ class FeatureBuilder(object):
         self.n_peaks = n_peaks 
         
     def init_features(self):
-    
         '''
         initialize feature dictionaries
         '''
-    
-        # set of variables for given signal itslef
+        
+        # variables for given signal itslef
         # this fatures will be calculated on the raw signal itself
         main_features = {
-
-            'mean': 0.0, # mean vale
             'std': 0.0, # standart deviation
+            'mean': 0.0, # mean vale
             'mad': 0.0, # median absolute deviation
             'max': 0.0, # larget value in array
             'min': 0.0, # smallest value in array
             'iqr': 0.0, # interquartile range
-            'entropy': 0.0, # entropy of signal
             'correlation-1': 0.0, # correlation
             'correlation-2': 0.0, # correlation
         }
 
-        # set of varaibles for freq-domain (FFT, PSD) or autocorellation signals
-        '''
-        For each transformation, we'll look at the first n peaks in the signal. 
-        We're not only the interested in the amplitude of these peaks happened 
-        also where/when this peaks happened in the t/f-domains. Thus we'll not only
-        take first n peaks of transformations but also their t/f-domains.
-
-        Thus, we'll create dynamic dic for n-peaks
-        '''
+        # varaibles for freq-domain (FFT, PSD) or autocorellation signals
+        # we'll create dynamic dictionary for n-peaks
         domain_features = {
 
-        'FFT':   {'min': 0, # smallest of selected peaks
-                  'max': 0, # largest of selected peaks
-                  'mean': 0, # mean of the peaks
-                  'peak-values':{}, # for 2 peak it will be like {'1':0, '2':0} 
-                  'peak-domains': {}}, # for 2 peak it will be like {'1':0, '2':0} 
+        'aCORR':  {'peaks-mean': 0, # mean of the first n selected peaks-value (not domains)
+                  'peak-value':{}, # for 2 peak it will be like {'1':0, '2':0} 
+                  'peak-domain': {}}, # for 2 peak it will be like {'1':0, '2':0} 
 
-        'PSD':   {'min': 0,
-                  'max': 0,
-                  'mean': 0,
-                  'peak-values': {},
-                  'peak-domains': {}},
+        'PSD':   {'peaks-mean': 0,
+                  'peak-value': {},
+                  'peak-domain': {}},
 
-        'aCORR': {'min': 0,
-                  'max': 0,
-                  'mean': 0,
-                  'peak-values': {},
-                  'peak-domains':{}}
+        'FFT':   {'peaks-mean': 0,
+                  'peak-value': {},
+                  'peak-domain':{}}
         }
 
-        # create n-items dict for n-peaks values/domains 
+        # create n-items dict for the first n-peaks values/domains 
         for signal in ['FFT', 'PSD', 'aCORR']:
-
             temp_dict = {}
-
             for i_peak in range(self.n_peaks):
                 temp_dict[str(i_peak)]=0
 
-            domain_features[signal]['peak-values'] = temp_dict
-            domain_features[signal]['peak-domains'] = temp_dict.copy()
-
+            domain_features[signal]['peak-value'] = temp_dict
+            domain_features[signal]['peak-domain'] = temp_dict.copy()
             
-        # save our featue dicts
+        # save our featue dictionaries
         self.main_features = main_features
         self.domain_features = domain_features
-
-        
+       
         
     # get domain_features values/ key names 
-    def get_main_features(self, return_values=True):
+    def get_main_features(self, return_values=False):
         '''
         convert main_features dict values to list
         
@@ -104,14 +88,12 @@ class FeatureBuilder(object):
                 output.append(value)
             else:
                 output.append(key)
-            
-                
+        
         return output
     
    
    # get domain_features values/ key names
-    def get_domain_features(self, return_values=True):
-
+    def get_domain_features(self, return_values=False):
         '''
         it runs over the dict and get's the required info.
         convert domain_features dict values and keys to list
@@ -126,10 +108,10 @@ class FeatureBuilder(object):
         # temporary list
         output = []
 
-        # we have 3-d dict, first iterate over signal names [FFT, PSD, aCORR]
+        # as we have 3 nested dict for domain_features, first iterate over signals [FFT, PSD, aCORR]
         for signal in self.domain_features.keys():
 
-            # itterate over the first nested dict [max, min, mean, peak-values, peak-domains] 
+            # iterate over the second nested dict [max, min, mean, peak-values, peak-domains] 
             for feature, f_val in self.domain_features[signal].items():
 
                 # chekc if the value of the first nested dict is itself a dict.
@@ -143,7 +125,7 @@ class FeatureBuilder(object):
                         output.append(signal+'-'+feature)
 
                 else:
-                    # iterate over second nested dict ['0': 0, '1': 0, ...]
+                    # iterate over third nested dict ['0': 0, '1': 0, ...]
                     for peaks, p_val in f_val.items():
 
                         # if return_values==true add value, otherwise add name
@@ -152,5 +134,73 @@ class FeatureBuilder(object):
                         else:
                             output.append(signal+'-'+feature+'-'+peaks)
 
-
         return output
+    
+    
+    # caculate the features for given ararys
+    def calculate_main_features(self, signal, corr_signals):
+        '''
+        input: 
+            signal: signal array for a axis in which caculation is will be done
+            corr_signals: list that contains signal arrays for other two axes,
+                         these will be used for calculation correlations.
+                         
+        output: return 1D array
+        '''
+
+        # do simple assertation on inputs
+        if type(signal)!=np.ndarray or signal.ndim!=1:
+            assert False, 'signal must be ndarray type with dimension 1'
+
+        if type(corr_signals)!=list or len(corr_signals)!=2:
+            assert False, 'corr_signals must be list with length 2'
+
+            
+        # calculate features
+        self.main_features['std'] = np.std(signal)
+        self.main_features['mean'] = np.mean(signal)
+        self.main_features['mad'] = np.median(signal)
+        self.main_features['max'] = np.max(signal)
+        self.main_features['min'] = np.min(signal)
+        self.main_features['iqr'] = stats.iqr(signal)
+        self.main_features['correlation-1'] = np.corrcoef(signal, corr_signals[0])[0,1]
+        self.main_features['correlation-2'] = np.corrcoef(signal, corr_signals[1])[0,1]
+
+
+    # caculate the features for given ararys
+    def calculate_domain_features(self, domain, signal, t_name=None):
+
+        '''
+        input:
+            domain: frequency/time domain of the signal
+            signal: transformed signal
+            t_name: name of signal transformation ('FFT', 'PSD', 'aCORR')
+        '''
+        # simple assertation for transform_name
+        if type(t_name)!=str or t_name.upper() not in ['FFT', 'PSD', 'ACORR']:
+            assert False, 'transform_name must be str type and can get one of (FFT, PSD or aCORR)'
+
+
+        # FIND THE PEAKS FROM TRANSFORMED SIGNAL
+        # define required minimum height for determining peaks in the signal.
+        QR_5 = np.nanpercentile(signal, 5)
+        QR_95 = np.nanpercentile(signal, 95)
+        height = QR_5 + (QR_95 - QR_5)/10
+        # get peak indices and peaks based on given height
+        indices_peaks, peak_values = find_peaks(signal, height=height)
+
+        # CALCULATE/ASSIGN VALUES
+        # iterate over peak-value/domain: if first n-peaks exist then assign them, else break
+        for i, key in enumerate(self.domain_features[t_name]['peak-value'].keys()):    
+                try:
+                    self.domain_features[t_name]['peak-value'][key] = signal[indices_peaks[i]]
+                    self.domain_features[t_name]['peak-domain'][key] = domain[indices_peaks[i]]
+                except:
+                    break
+
+        # if found peaks bigger than n_peaks then mean of the first n-peak,
+        # else get them what you have at the hand
+        if len(indices_peaks) >= self.n_peaks:
+            self.domain_features[t_name]['peaks-mean'] = np.mean(peak_values['peak_heights'][:self.n_peaks])
+        elif len(indices_peaks)!=0:
+            self.domain_features[t_name]['peaks-mean'] = np.mean(peak_values['peak_heights'])

@@ -7,11 +7,9 @@ import numpy as np
 from pandas import read_csv
 
 class DataHandler(object):
-       
-    
+
     # load a single txt file as a dataframe
     def load_txt(self, filedir):
-        
         '''
         input:
             filedir: file full path
@@ -21,7 +19,6 @@ class DataHandler(object):
         data = read_csv(filedir, header=None, delim_whitespace=True)
         return data
 
-    
     # load the files in the parnet dir and stack them together as numpy arrays
     def load_files(self, parentdir=''):
         

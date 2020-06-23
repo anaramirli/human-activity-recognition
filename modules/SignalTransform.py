@@ -1,6 +1,6 @@
 '''
-this class contains signal transformation between time and frequency domains
-and autocorrelation caculations with lagged signal
+this class contains implementaion of signal transformation between time and 
+frequency domains and autocorrelation caculations with lagged signal
 '''
 
 import numpy as np

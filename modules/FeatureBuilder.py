@@ -1,5 +1,6 @@
 '''
-some feature generation and handling for feature engineering part
+used in feature generation in for feature engineering part
+contains feature list/values handling and feature caculation methods.
 '''
 
 import numpy as np

@@ -116,7 +116,7 @@ def girdsearch(raw_data):
     param_colors.sort()
 
     # create selection menu for given available_params and set on change
-    param_selection =  Select(value=available_params[0], title='Gird-search params', options=available_params)
+    param_selection =  Select(value=available_params[0], title='Gird-search params for NN', options=available_params)
     param_selection.on_change('value', update)
 
     # initial selected data source to plot 

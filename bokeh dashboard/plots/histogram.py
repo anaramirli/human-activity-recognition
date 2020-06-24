@@ -61,7 +61,7 @@ def histogram(raw_data):
     def make_plot(data_source):
         
         # init plot
-        plt = figure(plot_width = 700, plot_height = 900, 
+        plt = figure(plot_width = 900, plot_height = 900, 
                   title = 'Histogram of different signals on each x,y,z-axis for a given activties',
                   x_axis_label = 'signal bins', y_axis_label = 'hist')
 

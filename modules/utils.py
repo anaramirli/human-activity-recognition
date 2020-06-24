@@ -133,12 +133,12 @@ def save_models_history(param_list, models_history):
     for i in range(len(models_history)):
 
         tmp_data=[]
-        param_id = np.array(len(models_history[i]['val_accuracy'])*['hidden: {}, act: {}, nodes: {}, opt: {}'.format(
-                  param_list[param_i]['hidden_layer_size'],
-                  param_list[param_i]['activation'],
-                  param_list[param_i]['node_size'],
-                  param_list[param_i]['optimizer']
-                  )])
+        param_id = np.array(len(models_history[i]['val_accuracy'])*['hidden-{}, act-{}, nod-{}, opt-{}'.format(
+              param_list[i]['hidden_layer_size'],
+              param_list[i]['activation'],
+              param_list[i]['node_size'],
+              param_list[i]['optimizer']
+              )])
 
         param_id = np.reshape(param_id, (param_id.shape[0], 1))
 
@@ -153,5 +153,5 @@ def save_models_history(param_list, models_history):
     labels= list(models_history[i].keys())
     labels.insert(0, 'id')
 
-    dataframe = pd.DataFrame(np.array(main_data), columns=labels)
+    dataframe = pd.DataFrame(np.array(data), columns=labels)
     dataframe.to_csv('dataset/nn_param_search.csv', index=False, header=True)

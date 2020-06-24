@@ -116,7 +116,7 @@ def plot_confusion_matrix(cm,
     plt.show()
     
     
-def save_models_history(param_list, models_history):
+def save_models_history(param_list, models_history, file_path):
     
     '''
     saves model history
@@ -154,4 +154,4 @@ def save_models_history(param_list, models_history):
     labels.insert(0, 'id')
 
     dataframe = pd.DataFrame(np.array(data), columns=labels)
-    dataframe.to_csv('dataset/nn_param_search.csv', index=False, header=True)
+    dataframe.to_csv(file_path, index=False, header=True)

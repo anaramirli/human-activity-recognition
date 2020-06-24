@@ -22,7 +22,7 @@ Used Dataset: [PrädBioSys → Customer Behavior](https://archive.ics.uci.edu/ml
     - ```raw_data_of_a_sbuject```: raw data without overlaps for a given subject, contains 9 different signals
     - ```gridsearch.py```: for visualises grid-search results
     - ```histogram.py```: visualises raw signals as time series
-    - ```signals.py```: visualises histogram for raw signals upon each activity each
+    - ```signals.py```: visualises histogram for raw signals upon each activity
     - ```main.py```: the main file to run bokeh visualization
 3. **dataset**: has train/test.csv files that we formed doing feature engineering.
 4. **modules**: contains our classes and utlity functions.

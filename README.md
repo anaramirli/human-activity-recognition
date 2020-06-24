@@ -13,7 +13,7 @@ Used Dataset: [PrädBioSys → Customer Behavior](https://archive.ics.uci.edu/ml
     |   +-- nn_param_search.csv 
     |   +-- raw_daa_of_a_subject 
     +-- plots
-    |   +-- gridsearch.py (histogram of )
+    |   +-- gridsearch.py
     |   +-- histogram.py 
     |	+-- signals.py
     +--- main.py

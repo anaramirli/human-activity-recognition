@@ -15,7 +15,7 @@ Used Dataset: [PrädBioSys → Customer Behavior](https://archive.ics.uci.edu/ml
     +-- plots
     |   +-- gridsearch.py
     |   +-- histogram.py 
-    |	+-- signals.py
+    |   +-- signals.py
     +--- main.py
     ``` 
     - ```nn_param_search.csv```: history results of acc, val_acc, loss, val_loss for grid-search on normal nn model

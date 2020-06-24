@@ -7,6 +7,7 @@ Used Dataset: [PrädBioSys → Customer Behavior](https://archive.ics.uci.edu/ml
 #### Dir description
 1. **UCI HAR Dataset**: Original (PrädBioSys → Customer Behavior ) dataset files. Description of the dataset can be found in README.md. For this project, we don't use ready-to-fit dataset, instead, we carry out feature engineering on raw data and use it.
 2. **bokeh dashboard**: Contains bokeh dashboard scripts for raw data and training result visualization. For activating, go into the directory and run ```bokeh serve --show main.py``` in command prompt.
+
     ```
     +-- data
     |   +-- nn_param_search.csv 
@@ -28,4 +29,4 @@ Used Dataset: [PrädBioSys → Customer Behavior](https://archive.ics.uci.edu/ml
     - ```DataHandler.py```: used for downloading dataset (txt) files and handle the data we get
     - ```FeatureBuilder.py```: used in feature generation in for feature engineering part, contains methods to handle feature list/values and caculation them.
     - ```SignalTransforms.py```: contains implementaion of signal transformation between time and frequency domains and autocorrelation caculations with lagged signal.
-    - ```utils.py```: contains some utulity functions such as figure poloting.
+    - ```utils.py```: has some utulity functions such as figure ploting.

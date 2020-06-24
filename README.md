@@ -6,6 +6,6 @@ Used Dataset: [PrädBioSys → Customer Behavior](https://archive.ics.uci.edu/ml
 
 #### Dir description
 1. **UCI HAR Dataset**: Original (PrädBioSys → Customer Behavior ) dataset files. Description of the dataset can be found in README.md. For this project, we don't use ready-to-fit dataset, instead, we carry out feature engineering on raw data and use it.
-2. **bokeh dashboard**: Contains bokeh dashboard scripts for raw data and training result visualization. For activating, go into files and run ```bokeh serve --show main.py```.
+2. **bokeh dashboard**: Contains bokeh dashboard scripts for raw data and training result visualization. For activating, go into the directory and run ```bokeh serve --show main.py``` in command prompt.
 3. **dataset**: train/test.csv files that we formed doing feature engineering.
 4. **modules**: contains our classes and utlity functions.

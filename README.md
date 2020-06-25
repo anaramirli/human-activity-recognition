@@ -18,12 +18,12 @@ Used Dataset: [PrädBioSys → Customer Behavior](https://archive.ics.uci.edu/ml
     |   +-- signals.py
     +--- main.py
     ``` 
-    - ```nn_param_search.csv```: history results of acc, val_acc, loss, val_loss for grid-search on normal nn model
+    - ```nn_param_search.csv```: history of of acc, val_acc, loss, val_loss results for grid-search on normal nn model wtk 10-fold validaation.
     - ```raw_data_of_a_sbuject```: raw data without overlaps for a given subject, contains 9 different signals
-    - ```gridsearch.py```: for visualises grid-search results
+    - ```gridsearch.py```: visualises grid-search results
     - ```histogram.py```: visualises raw signals as time series
     - ```signals.py```: visualises histogram for raw signals upon each activity
-    - ```main.py```: the main file to run bokeh visualization
+    - ```main.py```: the main file to run bokeh dashboard
 3. **dataset**: has train/test.csv files that we formed doing feature engineering.
 4. **modules**: contains our classes and utlity functions.
     - ```DataHandler.py```: used for downloading dataset (txt) files and handle the data we get

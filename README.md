@@ -19,7 +19,7 @@ Used Dataset: [PrädBioSys → Customer Behavior](https://archive.ics.uci.edu/ml
     +--- main.py
     ``` 
     - ```nn_param_search.csv```: history of of acc, val_acc, loss, val_loss results for grid-search on normal nn model wtk 10-fold validaation.
-    - ```raw_data_of_a_sbuject```: raw data without overlaps for a given subject, contains 9 different signals
+    - ```raw_data_of_a_sbuject.csv```: raw data without overlaps for a given subject, contains 9 different signals
     - ```gridsearch.py```: visualises grid-search results
     - ```histogram.py```: visualises raw signals as time series
     - ```signals.py```: visualises histogram for raw signals upon each activity

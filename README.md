@@ -27,6 +27,6 @@ Used Dataset: [PrädBioSys → Customer Behavior](https://archive.ics.uci.edu/ml
 3. **dataset**: has train/test.csv files that we formed doing feature engineering.
 4. **modules**: contains our classes and utlity functions.
     - ```DataHandler.py```: used for downloading raw dataset (txt) files and handle the data we get
-    - ```FeatureBuilder.py```: used in feature generation in for feature engineering part, contains methods to handle feature list/values and caculation them.
+    - ```FeatureBuilder.py```: used in feature generation for feature engineering part, contains methods to handle feature list/values and caculation them.
     - ```SignalTransforms.py```: contains implementaion of signal transformation between time and frequency domains and autocorrelation caculations with lagged signal.
     - ```utils.py```: has some utulity functions such as figure ploting.

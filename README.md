@@ -1,6 +1,6 @@
 # Human Activity Recognition Using Smartphones Dataset for Customer Behaviour
 
-In this project, we use Fast Fourier, Spectral density, Autocorrelation signal processing techniques along with normal domain feature extraction for predicting human activity recognition with neural networks.
+In this project, we use Fast Fourier, Spectral density, Autocorrelation signal processing techniques. Then applied domain feature extraction on both transformed and normal signals for predicting human activity recognition with Neural Networks and LSTM.
 
 Used Dataset: [Human Activity Recognition Using Smartphone](https://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphone)
 

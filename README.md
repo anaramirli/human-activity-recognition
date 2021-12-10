@@ -1,6 +1,8 @@
-# Human Activity Recognition Using Smartphones Dataset for Customer Behaviour
+# Human Activity Recognition Using Smartphones Dataset for Customer Behaviour (multivariate time-series classification)
 
-In this project, we use Fast Fourier, Spectral density, Autocorrelation signal processing techniques. Then applied domain feature extraction on both transformed and normal signals for predicting human activity recognition with Neural Networks and LSTM.
+This project concerns multivariate time-series classification for human activity recognition. Target activities are compromised of 'Walking', 'Upstairs', 'Downstairs', 'Sitting', 'Standing', 'Lying'. 
+
+Here we implement Fast Fourier, Spectral density, Autocorrelation signal processing techniques on raw activity signals for additional feature extraction. Then utilizing both transformed and normal signals, we classify activities using conventional Multilayer Perceptron and LSTM. 
 
 Used Dataset: [Human Activity Recognition Using Smartphone](https://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
 

@@ -7,7 +7,7 @@ Here we implement Fast Fourier, Spectral density, Autocorrelation signal process
 Used Dataset: [Human Activity Recognition Using Smartphone](https://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
 
 #### Dir description
-1. **UCI HAR Dataset**: Original (PrädBioSys → Customer Behavior ) dataset files. Description of the dataset can be found in README.md. For this project, we don't use ready-to-fit dataset, instead, we carry out feature engineering on raw data and use it.
+1. **UCI HAR Dataset**: Original (PrädBioSys → Customer Behavior ) dataset files. Description of the dataset can be found in README.md. For this project, we don't use a ready-to-fit dataset, instead, we carry out feature engineering on raw data and use it. But of course, you can skip this part, and directly fit the ready-to-fit to your own model. You can also access the manipulated data we generated in the ```dataset``` folder, and skip directly to the ```4. model building and testing.ipynb``` where you can train the model with the generated dataset.
 2. **bokeh dashboard**: Contains bokeh dashboard scripts for raw data and training result visualization. For activating, go into the directory and run ```bokeh serve --show main.py``` in command prompt.
 
     ```
